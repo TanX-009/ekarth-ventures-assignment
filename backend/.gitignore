@@ -1,0 +1,49 @@
+# Ignore Python compiled files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore virtual environment
+venv/
+env/
+*.venv
+
+# Ignore Django database and migrations
+db.sqlite3
+*.sqlite3
+*/migrations/*  # Exclude migrations, except __init__.py
+!*/migrations/__init__.py
+
+# Ignore secret keys and environment variables
+.env
+*.env
+config/settings_local.py  # If using local settings
+
+# Ignore logs and temp files
+*.log
+logs/
+*.pid
+*.seed
+
+# Ignore static and media files (if auto-generated)
+staticfiles/
+media/
+node_modules/
+bower_components/
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Django cache files
+__pycache__/
+*.cache
+
+# Ignore coverage and test reports
+htmlcov/
+*.cover
+.coverage
+nosetests.xml
+pytest_cache/
