@@ -71,3 +71,7 @@
    ```bash
    npm run dev
    ```
+
+1. Open [http://localhost:3000] in browser
+
+1. Login using any user that were created in the backend
