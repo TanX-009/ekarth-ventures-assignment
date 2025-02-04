@@ -1,0 +1,10 @@
+.input {
+  max-width: var(--sp-3xl);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3xs);
+}

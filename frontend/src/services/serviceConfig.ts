@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-//import Services from "./serviceUrls";
-//import { deleteLogin } from "@/app/actions/cookies";
+import Services from "./serviceUrls";
+import { deleteLogin } from "@/app/actions/cookies";
 
 interface TErrorResponse {
   detail: string;
@@ -38,68 +38,59 @@ const formDataInstance = axios.create({
   },
 });
 
-//async function handleTokenRefresh<TResponse>(
-//  originalRequest: AxiosRequestConfig,
-//): Promise<TApiResponse<TResponse>> {
-//  // retry the original request
-//  return await axios<TResponse>(originalRequest)
-//    .then(
-//      (retryResponse) =>
-//        // return the retired request data
-//        ({
-//          success: true,
-//          data: retryResponse.data,
-//        }) as TApiResponse<TResponse>,
-//    )
-//    .catch((retryError) => {
-//      console.error("Retry failed: ", retryError);
-//      return {
-//        success: false,
-//        status: retryError.status,
-//        error: { detail: "Retry failed!", error: retryError },
-//      };
-//    });
-//}
+async function handleTokenRefresh<TResponse>(
+  originalRequest: AxiosRequestConfig,
+): Promise<TApiResponse<TResponse>> {
+  // retry the original request
+  return await axios<TResponse>(originalRequest)
+    .then(
+      (retryResponse) =>
+        // return the retired request data
+        ({
+          success: true,
+          data: retryResponse.data,
+        }) as TApiResponse<TResponse>,
+    )
+    .catch((retryError) => {
+      console.error("Retry failed: ", retryError);
+      return {
+        success: false,
+        status: retryError.status,
+        error: { detail: "Retry failed!", error: retryError },
+      };
+    });
+}
 
-async function handle401Error<
-  TResponse,
->() /*originalRequest: AxiosRequestConfig,*/
-: Promise<TApiResponse<TResponse>> {
-  //try {
-  //  // try to refresh token
-  //  await instance.post<TResponse>(
-  //    Services.refresh,
-  //    {},
-  //    { withCredentials: true },
-  //  );
-  //
-  //  // if refreshed successfully
-  //  return await handleTokenRefresh(originalRequest);
-  //} catch (error) {
-  //  // the tokens are now expired
-  //  console.error("Refresh token error: ", error);
-  //  // ------------------------------------------
-  //  // delete tokens from user and logout the user
-  //  deleteLogin();
-  //  // handler block when the tokens expire
-  //  // ------------------------------------------
-  //  return {
-  //    success: false,
-  //    status: 401,
-  //    error: {
-  //      detail: "Refresh token expired!",
-  //      error: error,
-  //    } as TErrorResponse,
-  //  };
-  //}
+async function handle401Error<TResponse>(
+  originalRequest: AxiosRequestConfig,
+): Promise<TApiResponse<TResponse>> {
+  try {
+    // try to refresh token
+    await instance.post<TResponse>(
+      Services.refresh,
+      {},
+      { withCredentials: true },
+    );
 
-  return {
-    success: false,
-    status: 401,
-    error: {
-      detail: "401 Error",
-    } as TErrorResponse,
-  };
+    // if refreshed successfully
+    return await handleTokenRefresh(originalRequest);
+  } catch (error) {
+    // the tokens are now expired
+    console.error("Refresh token error: ", error);
+    // ------------------------------------------
+    // delete tokens from user and logout the user
+    deleteLogin();
+    // handler block when the tokens expire
+    // ------------------------------------------
+    return {
+      success: false,
+      status: 401,
+      error: {
+        detail: "Refresh token expired!",
+        error: error,
+      } as TErrorResponse,
+    };
+  }
 }
 
 async function requestFailureCallback<TResponse>(

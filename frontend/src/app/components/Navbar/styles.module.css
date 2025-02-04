@@ -1,0 +1,17 @@
+.navbar {
+  padding: var(--sp-xs);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: var(--sp-3xs);
+  flex-wrap: wrap;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3xs);
+  flex-wrap: wrap;
+}

@@ -1,4 +1,4 @@
-from django.conf import Settings
+from django.conf import settings
 import requests
 from django.core.management.base import BaseCommand
 from games.models import FootballGame
@@ -11,7 +11,7 @@ class Command(BaseCommand):
     help = "Fetch football games from API-Football and store them in the database"
 
     def handle(self, *args, **kwargs):
-        headers = {"x-apisports-key": Settings.API_KEY}
+        headers = {"x-apisports-key": settings.API_KEY}
 
         # Fetch games for today
         start_date = datetime.now().strftime("%Y-%m-%d")

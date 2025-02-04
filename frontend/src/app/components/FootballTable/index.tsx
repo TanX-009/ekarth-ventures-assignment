@@ -10,29 +10,43 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import styles from "./styles.module.css";
+import Editor from "./components/Editor";
+import { TUser } from "@/types/user";
+import { getLogin } from "@/app/actions/cookies";
 
 export default function FootballTable() {
   const [games, setGames] = useState<TGame[]>([]);
-  console.log(games);
+  const [tick, updateTick] = useState(false);
+
+  const [login, setLogin] = React.useState<TUser | null>(null);
 
   const columns: ColumnDef<TGame>[] = [
-    { accessorKey: "fixture_id", header: "Fixture ID" },
-    { accessorKey: "league_name", header: "League" },
-    { accessorKey: "league_season", header: "Season" },
     { accessorKey: "home_team", header: "Home Team" },
     { accessorKey: "away_team", header: "Away Team" },
-    { accessorKey: "halftime_home_score", header: "HT Home" },
-    { accessorKey: "halftime_away_score", header: "HT Away" },
-    { accessorKey: "home_score", header: "Fulltime Home" },
-    { accessorKey: "away_score", header: "Fulltime Away" },
-    //{
-    //  accessorKey: "game_date",
-    //  header: "Date",
-    //  cell: ({ getValue }) =>
-    //    moment(getValue() as string).format("YYYY-MM-DD HH:mm"),
-    //},
-    { accessorKey: "venue_name", header: "Venue" },
-    { accessorKey: "venue_city", header: "City" },
+    {
+      accessorKey: "home_score",
+      header: "Home Score",
+      cell: ({ row }) => (
+        <Editor
+          row={row}
+          accessorKey={"home_score"}
+          updateTick={updateTick}
+          login={login}
+        />
+      ),
+    },
+    {
+      accessorKey: "away_score",
+      header: "Away Score",
+      cell: ({ row }) => (
+        <Editor
+          row={row}
+          accessorKey={"away_score"}
+          updateTick={updateTick}
+          login={login}
+        />
+      ),
+    },
     { accessorKey: "status", header: "Status" },
   ];
 
@@ -45,36 +59,46 @@ export default function FootballTable() {
   const { isLoading, fetchGames } = useFetchGames(setGames);
   useEffect(() => {
     fetchGames();
-  }, [fetchGames]);
+  }, [fetchGames, tick]);
+
+  useEffect(() => {
+    (async function () {
+      const userdata = await getLogin();
+      if (userdata) setLogin(userdata);
+    })();
+  }, []);
 
   if (isLoading) return "Loading...";
   return (
-    <table className={styles.table}>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext(),
-                )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className={styles.tablerow}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className={styles.data}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className={styles.tableContainer}>
+      <p>Click on the scores to edit them and enter to save them!</p>
+      <table className={styles.table}>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id} className={styles.th}>
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext(),
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className={styles.td}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

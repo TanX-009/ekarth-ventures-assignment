@@ -1,12 +1,19 @@
 .home {
   width: 100%;
+  max-width: var(--max-width);
+
   margin: 0 auto;
   padding: var(--sp-3xs);
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: var(--sp-s);
 }
 
-.table {
-  border: var(--border) solid var(--primary);
-  border-radius: var(--radius);
-
-  overflow-x: auto;
+.title {
+  width: 100%;
+  text-align: center;
 }
