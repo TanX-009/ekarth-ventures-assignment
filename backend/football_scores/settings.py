@@ -154,3 +154,19 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 API_KEY = env("API_KEY")
+
+# Default values for the admin user
+DEFAULT_DJANGO_ADMIN_USER_EMAIL = env(
+    "DEFAULT_DJANGO_ADMIN_USER_EMAIL", default="admin@email.com"
+)
+DEFAULT_DJANGO_ADMIN_USER_USERNAME = env(
+    "DEFAULT_DJANGO_ADMIN_USER_USERNAME", default="admin"
+)
+DEFAULT_DJANGO_ADMIN_USER_PASSWORD = env(
+    "DEFAULT_DJANGO_ADMIN_USER_PASSWORD", default="admin"
+)
+
+# Default values for the regular user
+DEFAULT_ADMIN_USER_EMAIL = env("DEFAULT_ADMIN_USER_EMAIL", default="user@email.com")
+DEFAULT_ADMIN_USER_USERNAME = env("DEFAULT_ADMIN_USER_USERNAME", default="username")
+DEFAULT_ADMIN_USER_PASSWORD = env("DEFAULT_ADMIN_USER_PASSWORD", default="user")
