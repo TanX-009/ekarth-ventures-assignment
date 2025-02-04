@@ -55,6 +55,9 @@ export default function Login() {
 
   return (
     <form className={styles.login} onSubmit={onLogin}>
+      <div className={styles.title}>
+        <h1>Login</h1>
+      </div>
       <Input name="username" type="text" label="Username" required />
       <Input name="password" type="password" label="Password" required />
 
