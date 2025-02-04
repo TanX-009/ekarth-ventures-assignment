@@ -1,0 +1,16 @@
+.table {
+  width: 100%;
+  max-width: 100%;
+  padding: var(--sp-3xs);
+
+  overflow-x: auto;
+}
+
+.tablerow {
+  box-sizing: content-box;
+  border: 1px solid #f00;
+}
+
+.data {
+  padding: var(--sp-3xs);
+}
