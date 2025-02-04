@@ -31,7 +31,7 @@ export default function Navbar() {
 
       <div className={styles.links}>
         <p>
-          Hello, {login ? login.username || "-" : "Login to change scores!"}!
+          Hello, {login ? login.username || "-" : "Login to change scores"}!
         </p>
 
         {login ? (

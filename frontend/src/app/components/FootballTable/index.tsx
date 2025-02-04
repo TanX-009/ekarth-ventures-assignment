@@ -13,6 +13,7 @@ import styles from "./styles.module.css";
 import Editor from "./components/Editor";
 import { TUser } from "@/types/user";
 import { getLogin } from "@/app/actions/cookies";
+import Loading from "@/components/Loading";
 
 export default function FootballTable() {
   const [games, setGames] = useState<TGame[]>([]);
@@ -68,10 +69,12 @@ export default function FootballTable() {
     })();
   }, []);
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return <Loading centerStage />;
   return (
     <div className={styles.tableContainer}>
-      <p>Click on the scores to edit them and enter to save them!</p>
+      {login ? (
+        <p>Click on the scores to edit them and enter to save them!</p>
+      ) : null}
       <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
