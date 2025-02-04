@@ -1,14 +1,12 @@
 # Football Scores Application
 
----
-
 ## **Backend Setup (Django)**
 
 1. Make sure that you are in in the `backend` folder
 
 1. Create a **virtual environment** and activate it:
 
-   ```sh
+   ```bash
    python -m venv venv
    source venv/bin/activate   # For MacOS/Linux
    venv\Scripts\activate      # For Windows
@@ -17,7 +15,7 @@
 1. Set up the database:
 
    - Run the migrations to create the database schema:
-     ```sh
+     ```bash
      python manage.py migrate
      ```
 
@@ -37,18 +35,18 @@
 
 1. Create default users:
 
-   ```sh
+   ```bash
    python manage.py create_default_users
    ```
 
 1. Fetch games from the api into database
 
-   ```sh
+   ```bash
    python manage.py fetch_games
    ```
 
 1. Run the Django server:
-   ```sh
+   ```bash
    python manage.py runserver
    ```
 
@@ -58,7 +56,7 @@
 
 1. Install dependencies:
 
-   ```sh
+   ```bash
    npm install
    ```
 
@@ -70,6 +68,6 @@
 
 1. Start the app:
 
-   ```sh
+   ```bash
    npm run dev
    ```
