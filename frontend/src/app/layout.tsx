@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pranav Ekarth",
+  title: "Football",
   description: "Assignment for Fullstack dev.",
 };
 
