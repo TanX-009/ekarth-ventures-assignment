@@ -18,13 +18,6 @@
    pip install -r requirements.txt
    ```
 
-1. Set up the database:
-
-   - Run the migrations to create the database schema:
-     ```bash
-     python manage.py migrate
-     ```
-
 1. Create `.env` with follwing variables
 
    - Generate a secret
@@ -57,6 +50,13 @@
      DEFAULT_ADMIN_USER_EMAIL=user@email.com
      DEFAULT_ADMIN_USER_USERNAME=user
      DEFAULT_ADMIN_USER_PASSWORD=user
+     ```
+
+1. Set up the database:
+
+   - Run the migrations to create the database schema:
+     ```bash
+     python manage.py migrate
      ```
 
 1. Create default users:
