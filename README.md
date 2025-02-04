@@ -12,6 +12,12 @@
    venv\Scripts\activate      # For Windows
    ```
 
+1. Install dependencies
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 1. Set up the database:
 
    - Run the migrations to create the database schema:
@@ -21,17 +27,37 @@
 
 1. Create `.env` with follwing variables
 
-   ```env
-   API_KEY=<your-api-key-from-football-api>
-   SECRET_KEY=<secret-key-for-django>
-   DEBUG=True
-   DEFAULT_DJANGO_ADMIN_USER_EMAIL=admin@email.com
-   DEFAULT_DJANGO_ADMIN_USER_USERNAME=admin
-   DEFAULT_DJANGO_ADMIN_USER_PASSWORD=admin
-   DEFAULT_ADMIN_USER_EMAIL=user@email.com
-   DEFAULT_ADMIN_USER_USERNAME=username
-   DEFAULT_ADMIN_USER_PASSWORD=user
-   ```
+   - Generate a secret
+
+     1. Enter django shell
+
+        ```bash
+        django-admin shell
+        ```
+
+     2. In that shell
+
+        ```python
+        from django.core.management.utils import get_random_secret_key
+        get_random_secret_key()
+        ```
+
+     3. Use the key as `SECRET_KEY`
+
+   - Get API_KEY from [API-FOOTBALL](https://www.api-football.com/)
+
+   - Set `.env`
+     ```env
+     API_KEY=<your-api-key-from-football-api>
+     SECRET_KEY=<secret-key-for-django>
+     DEBUG=True
+     DEFAULT_DJANGO_ADMIN_USER_EMAIL=admin@email.com
+     DEFAULT_DJANGO_ADMIN_USER_USERNAME=admin
+     DEFAULT_DJANGO_ADMIN_USER_PASSWORD=admin
+     DEFAULT_ADMIN_USER_EMAIL=user@email.com
+     DEFAULT_ADMIN_USER_USERNAME=username
+     DEFAULT_ADMIN_USER_PASSWORD=user
+     ```
 
 1. Create default users:
 
